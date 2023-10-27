@@ -8701,8 +8701,8 @@ class DataFrame(NDFrame, OpsMixin):
             # just return y_values.
             if y.name not in self.columns:
                 return y_values
-
-            return expressions.where(mask, y_values, x_values)
+            values = self._mgr.where(y_values, mask, align=True)
+            return values
 
         if len(other) == 0:
             combined = self.reindex(
